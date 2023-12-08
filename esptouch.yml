@@ -1,0 +1,591 @@
+esphome:
+  name: your_touch_esp32_name
+  friendly_name: your_touch_esp32_name_friendly_name
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "YOUR_KEY_HERE"
+
+ota:
+  password: "YOUR_OTA_PWD_HERE"
+
+wifi:
+  ssid: !secret your_wifi_secret_ssid
+  password: !secret your_wifi_secret_pwd
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "your_touch_esp32_name Hotspot"
+    password: "someRandomPassword"
+
+captive_portal:
+
+spi:
+  - id: lcd
+    clk_pin: GPIO14
+    mosi_pin: GPIO13
+    miso_pin: GPIO12
+  - id: touch
+    clk_pin: GPIO25
+    mosi_pin: GPIO32
+    miso_pin: GPIO39
+
+i2c:
+  sda: GPIO27
+  scl: GPIO22
+  scan: true
+  id: bus_a
+
+globals:
+  - id: no_touch_count
+    type: int
+    initial_value: "0"
+  - id: max_timer
+    type: int
+    initial_value: "20"
+  - id: is_active
+    type: bool
+    initial_value: "true"
+
+color:
+  - id: my_red
+    red: 100%
+    green: 0%
+    blue: 0%
+  - id: my_green
+    red: 0%
+    green: 100%
+    blue: 0%
+  - id: my_white
+    red: 100%
+    green: 100%
+    blue: 100%
+  - id: my_black
+    red: 0%
+    green: 0%
+    blue: 0%
+  - id: bright_orange
+    red: 94%
+    green: 48%
+    blue: 2%
+  - id: dark_orange
+    red: 33%
+    green: 0%
+    blue: 0%
+
+font:
+  # gfonts://family[@weight]
+  - file: "gfonts://Courier Prime"
+    id: roboto
+    size: 12
+
+
+binary_sensor:
+  - platform: status
+    name: "Node Status"
+    id: system_status
+
+  - platform: touchscreen
+    internal: True
+    name: Touch1
+    x_min: 15
+    x_max: 65
+    y_min: 30
+    y_max: 80
+    on_press:
+      then:
+        - if:
+            condition:
+              lambda: 'return id(is_active) == true;'
+            then:
+              - homeassistant.service:
+                  service: switch.toggle
+                  data:
+                    entity_id: switch.your_entity_id1
+              - delay: 1s
+
+  - platform: touchscreen
+    internal: True
+    name: Touch2
+    x_min: 95
+    x_max: 145
+    y_min: 30
+    y_max: 80
+    on_press:
+      then:
+        - if:
+            condition:
+              lambda: 'return id(is_active) == true;'
+            then:
+              - homeassistant.service:
+                  service: switch.toggle
+                  data:
+                    entity_id: switch.your_entity_id2
+              - delay: 1s
+
+  - platform: touchscreen
+    internal: True
+    name: Touch3
+    x_min: 175
+    x_max: 225
+    y_min: 30
+    y_max: 80
+    on_press:
+      then:
+        - if:
+            condition:
+              lambda: 'return id(is_active) == true;'
+            then:
+              - homeassistant.service:
+                  service: switch.toggle
+                  data:
+                    entity_id: switch.your_entity_id3
+              - delay: 1s
+
+  - platform: touchscreen
+    internal: True
+    name: Touch4
+    x_min: 15
+    x_max: 65
+    y_min: 100
+    y_max: 150
+    on_press:
+      then:
+        - if:
+            condition:
+              lambda: 'return id(is_active) == true;'
+            then:
+              - homeassistant.service:
+                  service: switch.toggle
+                  data:
+                    entity_id: switch.your_entity_id4
+              - delay: 1s
+
+  - platform: touchscreen
+    internal: True
+    name: Touch5
+    x_min: 95
+    x_max: 145
+    y_min: 100
+    y_max: 150
+    on_press:
+      then:
+        - if:
+            condition:
+              lambda: 'return id(is_active) == true;'
+            then:
+              - homeassistant.service:
+                  service: switch.toggle
+                  data:
+                    entity_id: switch.your_entity_id5
+              - delay: 1s
+
+  - platform: touchscreen
+    internal: True
+    name: Touch6
+    x_min: 175
+    x_max: 225
+    y_min: 100
+    y_max: 150
+    on_press:
+      then:
+        - if:
+            condition:
+              lambda: 'return id(is_active) == true;'
+            then:
+              - homeassistant.service:
+                  service: switch.toggle
+                  data:
+                    entity_id: switch.your_entity_id6
+              - delay: 1s
+
+  - platform: touchscreen
+    internal: True
+    name: Touch7
+    x_min: 15
+    x_max: 65
+    y_min: 170
+    y_max: 220
+    on_press:
+      then:
+        - if:
+            condition:
+              lambda: 'return id(is_active) == true;'
+            then:
+              - homeassistant.service:
+                  service: switch.toggle
+                  data:
+                    entity_id: switch.your_entity_id7
+              - delay: 1s
+
+  - platform: touchscreen
+    internal: True
+    name: Touch8
+    x_min: 95
+    x_max: 145
+    y_min: 170
+    y_max: 220
+    on_press:
+      then:
+        - if:
+            condition:
+              lambda: 'return id(is_active) == true;'
+            then:
+              - homeassistant.service:
+                  service: switch.toggle
+                  data:
+                    entity_id: switch.your_entity_id8
+              - delay: 1s
+
+  - platform: touchscreen
+    internal: True
+    name: Touch9
+    x_min: 175
+    x_max: 225
+    y_min: 170
+    y_max: 220
+    on_press:
+      then:
+        - if:
+            condition:
+              lambda: 'return id(is_active) == true;'
+            then:
+              - homeassistant.service:
+                  service: switch.toggle
+                  data:
+                    entity_id: switch.your_entity_id9
+              - delay: 1s
+
+
+  - platform: touchscreen
+    internal: True
+    name: Touch10
+    x_min: 15
+    x_max: 65
+    y_min: 240
+    y_max: 290
+    on_press:
+      then:
+        - if:
+            condition:
+              lambda: 'return id(is_active) == true;'
+            then:
+              - homeassistant.service:
+                  service: switch.toggle
+                  data:
+                    entity_id: switch.your_entity_id10
+              - delay: 1s
+
+  - platform: touchscreen
+    internal: True
+    name: Touch11
+    x_min: 95
+    x_max: 145
+    y_min: 240
+    y_max: 290
+    on_press:
+      then:
+        - if:
+            condition:
+              lambda: 'return id(is_active) == true;'
+            then:
+              - homeassistant.service:
+                  service: switch.toggle
+                  data:
+                    entity_id: switch.your_entity_id11
+              - delay: 1s
+
+  - platform: touchscreen
+    internal: True
+    name: Touch12
+    x_min: 175
+    x_max: 225
+    y_min: 240
+    y_max: 290
+    on_press:
+      then:
+        - if:
+            condition:
+              lambda: 'return id(is_active) == true;'
+            then:
+              - homeassistant.service:
+                  service: switch.toggle
+                  data:
+                    entity_id: switch.your_entity_id12
+              - delay: 1s
+
+  - platform: homeassistant
+    name: "YOUR FRIENDLY NAME 1"
+    entity_id: switch.your_entity_id1
+    id: your_esphome_internal_id1
+
+  - platform: homeassistant
+    name: "YOUR FRIENDLY NAME 2"
+    entity_id: switch.your_entity_id2
+    id: your_esphome_internal_id2
+
+  - platform: homeassistant
+    name: "YOUR FRIENDLY NAME 3"
+    entity_id: switch.your_entity_id3
+    id: your_esphome_internal_id3
+
+  - platform: homeassistant
+    name: "YOUR FRIENDLY NAME 4"
+    entity_id: switch.your_entity_id4
+    id: your_esphome_internal_id4
+
+  - platform: homeassistant
+    name: "YOUR FRIENDLY NAME 5"
+    entity_id: switch.your_entity_id5
+    id: your_esphome_internal_id5
+
+  - platform: homeassistant
+    name: "YOUR FRIENDLY NAME 6"
+    entity_id: switch.your_entity_id6
+    id: your_esphome_internal_id6
+
+  - platform: homeassistant
+    name: "YOUR FRIENDLY NAME 7"
+    entity_id: switch.your_entity_id7
+    id: your_esphome_internal_id7
+
+  - platform: homeassistant
+    name: "YOUR FRIENDLY NAME 7"
+    entity_id: switch.your_entity_id7
+    id: your_esphome_internal_id7
+
+  - platform: homeassistant
+    name: "YOUR FRIENDLY NAME 8"
+    entity_id: switch.your_entity_id8
+    id: your_esphome_internal_id8
+
+  - platform: homeassistant
+    name: "YOUR FRIENDLY NAME 9"
+    entity_id: switch.your_entity_id9
+    id: your_esphome_internal_id9
+
+  - platform: homeassistant
+    name: "YOUR FRIENDLY NAME 10"
+    entity_id: switch.your_entity_id10
+    id: your_esphome_internal_id10
+
+  - platform: homeassistant
+    name: "YOUR FRIENDLY NAME 11"
+    entity_id: switch.your_entity_id11
+    id: your_esphome_internal_id11
+
+  - platform: homeassistant
+    name: "YOUR FRIENDLY NAME 12"
+    entity_id: switch.your_entity_id12
+    id: your_esphome_internal_id12
+
+    
+
+time:
+  - platform: homeassistant
+    id: esptime
+
+text_sensor:
+  - platform: template
+    # name: Uptime Human Readable
+    id: uptime_human
+    icon: mdi:clock-start
+    internal: True
+
+  - platform: wifi_info
+    ip_address:
+      # name: ESP IP Address
+      id: ip_address
+
+# some icons which can be used later
+image:
+  - file: mdi:lamp-outline
+    id: lamp
+    resize: 50x50
+  - file: mdi:lightbulb-outline
+    id: bulb
+    resize: 50x50
+  - file: mdi:lightbulb-multiple-outline
+    id: bulbs
+    resize: 50x50
+  - file: mdi:fan-chevron-up
+    id: fan
+    resize: 50x50
+  - file: mdi:star-outline
+    id: star
+    resize: 50x50
+  - file: mdi:creation-outline
+    id: stars
+    resize: 50x50
+  - file: mdi:string-lights
+    id: stringlights
+    resize: 50x50
+  - file: mdi:floor-lamp-outline
+    id: floorlamp
+    resize: 50x50
+  - file: mdi:ceiling-light-outline
+    id: ceilinglamp
+    resize: 50x50
+  - file: mdi:candle
+    id: candle
+    resize: 50x50
+  - file: mdi:toggle-switch-variant-off
+    id: toggle_switch
+    resize: 50x50
+  - file: mdi:menorah
+    id: menorah
+    resize: 50x50
+
+display:
+  - platform: ili9xxx
+    model: ILI9341
+    spi_id: lcd
+    cs_pin: 15
+    dc_pin: 2
+    lambda: |-
+      int elemCount = 12; // count of icons to show
+
+      // Icons (ids from the image list above)
+      esphome::image::Image* icons[elemCount] = 
+        {
+          lamp, 
+          bulbs, 
+          lamp, 
+          candle,
+          fan,
+          bulb,
+          stars,
+          floorlamp,
+          menorah, 
+          stringlights,
+          ceilinglamp, 
+          toggle_switch
+        };
+
+      // devices
+      esphome::homeassistant::HomeassistantBinarySensor* devices[elemCount] = 
+        {
+          your_esphome_internal_id1, 
+          your_esphome_internal_id2, 
+          your_esphome_internal_id3, 
+          your_esphome_internal_id4,
+          your_esphome_internal_id5,
+          your_esphome_internal_id6,
+          your_esphome_internal_id7,
+          your_esphome_internal_id8,
+          your_esphome_internal_id9, 
+          your_esphome_internal_id10,
+          your_esphome_internal_id11, 
+          your_esphome_internal_id12
+        };
+
+      // activate / deactivate display
+      id(no_touch_count) = id(no_touch_count) + 1;
+
+      if(id(no_touch_count) == id(max_timer)) {
+        it.fill(my_black);
+        auto call = id(back_light).turn_off();
+        call.perform();
+        id(is_active) = false;
+      } else if(id(no_touch_count) <= id(max_timer)) {
+        
+        //drawing if needed
+        it.strftime(5, 5, id(roboto), id(my_white), TextAlign::TOP_LEFT, "%H:%M:%S - %d.%m.%Y", id(esptime).now());
+        
+        if (id(system_status).state) {
+          it.print(it.get_width()-5, 5, id(roboto), id(my_green), TextAlign::TOP_RIGHT, "Aktiv");
+        }
+        else {
+          it.print(it.get_width()-5, 5, id(roboto), id(my_red), TextAlign::TOP_RIGHT, "Inaktiv");
+        }
+        
+        // lights
+        int elemIndex = 0;
+        for(int i = 0; i < 4; ++i) {
+          for(int j = 0; j < 3; ++j) {
+            if (id(devices[elemIndex]).state) {
+              it.image(15 + 80 * j, 30 + 70 * i, icons[elemIndex], id(bright_orange), id(my_black));
+            }
+            else {
+              it.image(15 + 80 * j, 30 + 70 * i, icons[elemIndex], id(dark_orange), id(my_black));
+            }
+            elemIndex++;
+            if(elemIndex == elemCount) {
+              break;
+            }
+          }
+
+          if(elemIndex == elemCount) {
+            break;
+          }
+        }
+
+        id(is_active) = true;
+      }
+
+# Define pins for backlight display and back LED1
+output:
+  - platform: ledc
+    pin: GPIO21
+    id: former_led_pin
+  - platform: ledc
+    id: output_red
+    pin: GPIO4
+    inverted: true
+  - platform: ledc
+    id: output_green
+    pin: GPIO16
+    inverted: true
+  - platform: ledc
+    id: output_blue
+    pin: GPIO17
+    inverted: true
+
+# Define a monochromatic, dimmable light for the backlight
+light:
+  - platform: monochromatic
+    output: former_led_pin
+    name: "Display Backlight"
+    id: back_light
+    restore_mode: ALWAYS_ON
+  - platform: rgb
+    name: LED
+    red: output_red
+    id: led
+    green: output_green
+    blue: output_blue
+    restore_mode: ALWAYS_OFF
+
+touchscreen:
+  platform: xpt2046
+  spi_id: touch
+  id: my_touchscreen
+  cs_pin: 33
+  interrupt_pin: 36
+  update_interval: 50ms
+  report_interval: 1s
+  threshold: 400
+  calibration_x_min: 3860
+  calibration_x_max: 280
+  calibration_y_min: 340
+  calibration_y_max: 3860
+  swap_x_y: false
+  on_touch:
+    then:
+      - light.turn_on: back_light
+      - lambda: |- 
+          id(no_touch_count) = 0;
+
+# Exposed switches.
+switch:
+  - platform: restart
+    name: ESP32-2432S028 Restart
