@@ -47,7 +47,7 @@ So I added the following to the display section:
   transform:
     swap_xy: true
     mirror_x: true
-    mirror_y: false
+    mirror_y: true
 ```
 
 #### Timer
