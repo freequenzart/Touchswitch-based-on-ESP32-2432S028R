@@ -16,8 +16,8 @@ api:
     key: "YOUR_KEY_HERE"
 
 ota:
-- platform: esphome
-  password: "YOUR_OTA_PWD_HERE"
+  - platform: esphome
+    password: "YOUR_OTA_PWD_HERE"
 
 wifi:
   ssid: !secret your_wifi_secret_ssid
@@ -452,6 +452,10 @@ display:
     spi_id: lcd
     cs_pin: 15
     dc_pin: 2
+    transform:
+      swap_xy: true
+      mirror_x: true
+      mirror_y: true
     lambda: |-
       int elemCount = 12; // count of icons to show
 
