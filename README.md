@@ -35,6 +35,21 @@ After that I installed the esp32 firmware.bin by connecting the board by USB to 
 
 ### What you have to change in the other code
 
+#### Rotation
+I had ordered another of these displays and installed this code. The display was rotated by 90°. A view on the project pages shows the following:
+
+[ILI9xxx TFT LCD Series from ESPHome](https://esphome.io/components/display/ili9xxx.html)
+
+> The rotation variable will do a software based rotation. It is better to use the transform option to rotate the display in hardware. Use one of the following combinations: - 90 degrees - use swap_xy with mirror_x - 180 degrees - use mirror_x with mirror_y - 270 degrees - use swap_xy with mirror_y.
+
+So I added the following to the display section:
+```yml
+  transform:
+    swap_xy: true
+    mirror_x: true
+    mirror_y: false
+```
+
 #### Timer
 In the ```globals``` you find the variable ```max_timer```. This is the time in seconds, thich the displays stay on after the last touchevent. In my case I have chosen 20s.
 
