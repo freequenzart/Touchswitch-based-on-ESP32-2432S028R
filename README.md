@@ -12,6 +12,16 @@ My basic yml-Code was inspired by the repository of ```BOlaerts``` which you can
 
 I wannted to create an battery driven handsized touch device to handle my smarthome setup based on home assistant. The current yml is a bit a mess but it works :-) The display turns of after a specified among of time to save battery.
 
+## Device Versions
+My second unit of the "cheap yellow display" was a newer version with USBc. But there is a problem with the color depth in this device if you use espHome. 
+First thing I had to do was add this to the display in the yml:
+
+```yml
+  color_order: RGB
+```
+But because of some missing or changed parts on the board, the color depth is only 8 bit, as far as I see. So in the moment no real images are shown correctly and some colors from the code are shown wrong, if the bit's are to high. 
+
+Read here an interessting thread: [esphome color issues with ili9342 Cheap Yellow Display CYD](https://github.com/esphome/issues/issues/5403)
 
 ## How to use and what to change
 
